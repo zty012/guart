@@ -14,6 +14,7 @@ import (
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/input"
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/layout"
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/theme"
+	"github.com/egoist/mygo"
 	"github.com/egoist/mygo/ui"
 )
 
@@ -435,6 +436,10 @@ func (a *app) sendPresets(c *ui.Context, disabled bool) {
 }
 
 func (a *app) statusBar(c *ui.Context) {
+	version := mygo.App.Version()
+	if version == "" {
+		version = "dev"
+	}
 	left := []layout.StatusItem{{ID: "notice", Text: a.notice, Secondary: true}}
 	connection := "OFFLINE"
 	if a.active != nil {
@@ -458,6 +463,6 @@ func (a *app) statusBar(c *ui.Context) {
 	}
 	layout.StatusBar(c, layout.StatusBarOptions{Left: left, Right: []layout.StatusItem{
 		{ID: "connection", Text: connection},
-		{ID: "version", Text: "GUART 0.1", Secondary: true},
+		{ID: "version", Text: "GUART " + version, Secondary: true},
 	}})
 }

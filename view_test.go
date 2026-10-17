@@ -10,8 +10,33 @@ import (
 
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/core"
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/theme"
+	"github.com/egoist/mygo"
 	"github.com/egoist/mygo/ui"
 )
+
+func TestStatusBarBuildVersion(t *testing.T) {
+	original := mygo.App.Version()
+	t.Cleanup(func() { mygo.App.SetVersion(original) })
+	for _, size := range [][2]int{{1320, 900}, {960, 720}} {
+		t.Run(fmt.Sprintf("%dx%d", size[0], size[1]), func(t *testing.T) {
+			a := newApp()
+			tt := ui.NewTester(a.view, size[0], size[1])
+			for _, tc := range []struct{ version, label string }{
+				{"1.2.3", "GUART 1.2.3"},
+				{"1.3.0-rc.1", "GUART 1.3.0-rc.1"},
+				{"", "GUART dev"},
+			} {
+				mygo.App.SetVersion(tc.version)
+				for i := 0; i < 3; i++ {
+					tt.Frame()
+					if !tt.HasText(tc.label) || tt.HasText("GUART 0.1") {
+						t.Fatalf("version %q: status bar does not show %q", tc.version, tc.label)
+					}
+				}
+			}
+		})
+	}
+}
 
 func TestHeaderCheckForUpdates(t *testing.T) {
 	for _, tc := range []struct {

@@ -1,7 +1,11 @@
 {
   "name": "GUART",
   "identifier": "com.guart.studio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "icon": "resources/icon.png",
-  "out": "build"
+  "out": "build",
+  "updates": {
+    "publicKey": "bBaC/q0e8qfzB4C7kmTtptrHMO1eyCADEwR4td8ysnI=",
+    "github": "zty012/guart"
+  }
 }

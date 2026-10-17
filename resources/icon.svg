@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 128 128">
+  <title>GUART - Serial Signal</title>
+  <desc>A warm white G and an amber serial pulse on a deep teal tile.</desc>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#196B68"/>
+      <stop offset="1" stop-color="#083B43"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#tile)"/>
+  <rect x="5" y="5" width="118" height="118" rx="27" fill="none" stroke="#EAF5E9" stroke-opacity="0.12"/>
+  <path d="M90 39C80 29 65 27 51 33C36 39 28 53 29 69C30 85 42 98 58 100C75 103 91 94 97 80V68H77"
+        fill="none" stroke="#F5F2DF" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M47 68H54V55H66V68H77" fill="none" stroke="#FFBD66" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

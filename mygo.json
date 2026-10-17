@@ -1,0 +1,7 @@
+{
+  "name": "GUART",
+  "identifier": "com.guart.studio",
+  "version": "0.1.0",
+  "icon": "resources/icon.png",
+  "out": "build"
+}

@@ -4,10 +4,13 @@ import (
 	"log"
 
 	"github.com/egoist/mygo"
+	"github.com/egoist/mygo/plugins/updater"
+	"github.com/egoist/mygo/plugins/updater/native"
 	"github.com/egoist/mygo/ui"
 )
 
 func main() {
+	mygo.Use(native.New(updater.Options{Icon: appIconPNG, Language: "zh-Hans"}))
 	a := newApp()
 	mygo.App.WhenReady(func() {
 		w := mygo.NewWindow(mygo.WindowOptions{

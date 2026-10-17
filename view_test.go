@@ -13,6 +13,63 @@ import (
 	"github.com/egoist/mygo/ui"
 )
 
+func TestHeaderCheckForUpdates(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		w, h int
+		bar  ui.TitleBar
+	}{
+		{"wide", 1320, 900, ui.TitleBar{Height: 40, Right: 138}},
+		{"compact", 960, 720, ui.TitleBar{Height: 40, Right: 138}},
+		{"compact-left-controls", 960, 720, ui.TitleBar{Height: 40, Left: 78}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			a := newApp()
+			if a.checkForUpdates == nil {
+				t.Fatal("update action is not configured")
+			}
+			checks := 0
+			a.checkForUpdates = func() { checks++ }
+			tt := ui.NewTester(a.view, tc.w, tc.h)
+			tt.SetTitleBar(tc.bar)
+			for i := 0; i < 3; i++ {
+				tt.Frame()
+			}
+			if checks != 0 {
+				t.Fatal("rendering triggered a manual update check")
+			}
+			for _, label := range []string{"检查更新", "外观模式"} {
+				r, ok := tt.Find(label)
+				if !ok || r.W <= 0 || r.H <= 0 || r.X < tc.bar.Left || r.Y < 0 || r.X+r.W > float32(tc.w)-tc.bar.Right || r.Y+r.H > 90 {
+					t.Fatalf("header control %q is outside the title bar: %+v", label, r)
+				}
+			}
+			for i := 1; i <= 2; i++ {
+				if err := tt.Click("检查更新"); err != nil {
+					t.Fatal(err)
+				}
+				tt.Frame()
+				if checks != i {
+					t.Fatalf("click %d: got %d update checks", i, checks)
+				}
+			}
+			if dir := os.Getenv("GUART_SCREENSHOTS"); dir != "" {
+				if err := os.MkdirAll(dir, 0755); err != nil {
+					t.Fatal(err)
+				}
+				f, err := os.Create(filepath.Join(dir, "guart-updater-"+tc.name+".png"))
+				if err != nil {
+					t.Fatal(err)
+				}
+				defer f.Close()
+				if err := png.Encode(f, tt.Image()); err != nil {
+					t.Fatal(err)
+				}
+			}
+		})
+	}
+}
+
 func TestAppearanceFollowsSystemAndManualOverrides(t *testing.T) {
 	for _, size := range [][2]int{{1320, 900}, {960, 720}} {
 		t.Run(fmt.Sprintf("%dx%d", size[0], size[1]), func(t *testing.T) {

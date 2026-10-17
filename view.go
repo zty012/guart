@@ -62,6 +62,8 @@ func (a *app) header(c *ui.Context) {
 			}
 		}
 		display.Badge(c, display.BadgeOptions{Text: status, Tone: tone}, nil)
+		input.Button(c.Key("check-for-updates"), "检查更新", input.ButtonOptions{Variant: input.Ghost, Icon: icons.Must("download")}).
+			OnClick(a.checkForUpdates)
 		input.Select(c.Key("theme-mode"), &a.themeMode, []input.SelectOption[core.Mode]{
 			{Value: core.System, Label: "跟随系统"},
 			{Value: core.Light, Label: "浅色外观"},

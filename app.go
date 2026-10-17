@@ -13,6 +13,7 @@ import (
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/core"
 	"git.zacharyzhang.com/ZacharyZhang-NY/MujicaUI/layout"
 	"github.com/egoist/mygo"
+	"github.com/egoist/mygo/plugins/updater"
 	"github.com/egoist/mygo/ui"
 	"go.bug.st/serial"
 )
@@ -33,6 +34,7 @@ type app struct {
 	connectedAt                          time.Time
 	post                                 func(func())
 	window                               *mygo.Window
+	checkForUpdates                      func()
 	openPort                             func(portConfig) (transport, error)
 	listPorts                            func() ([]string, error)
 	lookupUSB                            func(string) (*usbPortInfo, error)
@@ -70,7 +72,8 @@ type app struct {
 
 func newApp() *app {
 	return &app{config: defaultConfig(), openPort: openSerial, listPorts: serial.GetPortsList, lookupUSB: lookupNativeUSB,
-		receiveMode: receiveIdle, receiveGap: "10",
+		checkForUpdates: updater.CheckForUpdates,
+		receiveMode:     receiveIdle, receiveGap: "10",
 		direction: "ALL", displayMode: "UTF-8", sendMode: "UTF-8", ending: "CRLF", interval: "1000",
 		sidebar: layout.SplitPaneState{Size: 256}, notice: "就绪"}
 }

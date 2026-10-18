@@ -36,6 +36,7 @@ func (a *app) view(c *ui.Context) {
 
 func (a *app) header(c *ui.Context) {
 	k := core.Tokens(c)
+	services := c.Services()
 	// The native window buttons are overlaid on this row when the window uses
 	// a hidden title bar. Reserve their platform-specific inset and make the
 	// rest of the header a draggable title-bar surface.
@@ -65,6 +66,8 @@ func (a *app) header(c *ui.Context) {
 		display.Badge(c, display.BadgeOptions{Text: status, Tone: tone}, nil)
 		input.Button(c.Key("check-for-updates"), "检查更新", input.ButtonOptions{Variant: input.Ghost, Icon: icons.Must("download")}).
 			OnClick(a.checkForUpdates)
+		input.Button(c.Key("donate"), "赞助", input.ButtonOptions{Variant: input.Ghost}).
+			OnClick(func() { services.OpenURL("https://2y.nz/donate") })
 		input.Select(c.Key("theme-mode"), &a.themeMode, []input.SelectOption[core.Mode]{
 			{Value: core.System, Label: "跟随系统"},
 			{Value: core.Light, Label: "浅色外观"},

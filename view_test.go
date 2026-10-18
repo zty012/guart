@@ -63,7 +63,10 @@ func TestHeaderCheckForUpdates(t *testing.T) {
 			if checks != 0 {
 				t.Fatal("rendering triggered a manual update check")
 			}
-			for _, label := range []string{"检查更新", "外观模式"} {
+			if urls := tt.OpenedURLs(); len(urls) != 0 {
+				t.Fatalf("rendering opened URLs: %v", urls)
+			}
+			for _, label := range []string{"检查更新", "赞助", "外观模式"} {
 				r, ok := tt.Find(label)
 				if !ok || r.W <= 0 || r.H <= 0 || r.X < tc.bar.Left || r.Y < 0 || r.X+r.W > float32(tc.w)-tc.bar.Right || r.Y+r.H > 90 {
 					t.Fatalf("header control %q is outside the title bar: %+v", label, r)
@@ -76,6 +79,18 @@ func TestHeaderCheckForUpdates(t *testing.T) {
 				tt.Frame()
 				if checks != i {
 					t.Fatalf("click %d: got %d update checks", i, checks)
+				}
+			}
+			for i := 1; i <= 2; i++ {
+				if err := tt.Click("赞助"); err != nil {
+					t.Fatal(err)
+				}
+				tt.Frame()
+				if urls := tt.OpenedURLs(); len(urls) != i || urls[i-1] != "https://2y.nz/donate" {
+					t.Fatalf("click %d: got opened URLs %v", i, urls)
+				}
+				if checks != 2 {
+					t.Fatal("donate click triggered an update check")
 				}
 			}
 			if dir := os.Getenv("GUART_SCREENSHOTS"); dir != "" {

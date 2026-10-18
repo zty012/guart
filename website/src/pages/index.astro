@@ -1,0 +1,70 @@
+---
+import SignalLab from '../components/SignalLab.vue';
+import '../styles/global.css';
+
+const repo = 'https://github.com/zty012/guart';
+const features = [
+  { n: '01', icon: '↔', title: '字节原貌，一目了然', text: 'UTF-8 / HEX 自由切换，ANSI 彩色日志、原始字节检视，让可读性与原始数据兼得。', tag: 'UTF-8 / HEX / ANSI' },
+  { n: '02', icon: '≋', title: '碎片接收，完整阅读', text: '按空闲间隔、换行或同一毫秒重新分组。只改变显示，不改变原始记录，随时追溯每次读取。', tag: '4 种 RX 分组方式' },
+  { n: '03', icon: '↻', title: '少一点重复操作', text: '快捷命令、循环发送、方向筛选与全文搜索。暂停显示时继续接收，不打断你的调试节奏。', tag: '为日常调试而设计' },
+  { n: '04', icon: '↓', title: '留住每一条线索', text: '一键导出 CSV 日志，保留时间、方向、完整 HEX 和可读文本。从现场调试到离线复盘。', tag: '原始数据，可追溯' },
+];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#104e48" />
+    <meta name="description" content="GUART 是一款 Go 原生串口调试工具。自动连接新出现的串口，被动推测当前连接的 MCU，支持 UTF-8/HEX、ANSI 彩色日志与 CSV 导出。" />
+    <meta property="og:title" content="GUART — 每一个字节，都有迹可循。" />
+    <meta property="og:description" content="自动连接新串口，读懂 MCU 的线索。一个更懂硬件开发者的原生串口工作台。" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>GUART — 每一个字节，都有迹可循。</title>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">跳到主要内容</a>
+    <header class="site-header wrap">
+      <a href="/" class="brand" aria-label="GUART 首页"><img src="/favicon.svg" alt="" width="38" height="38" /><span>GUART<span class="brand-sub">SERIAL STUDIO</span></span></a>
+      <nav aria-label="主导航" class="flex items-center gap-7"><a class="nav-link" href="#signature">独家功能</a><a class="nav-link" href="#workspace">工作台</a><a class="nav-link" href={`${repo}#readme`} target="_blank" rel="noreferrer">文档 <span aria-hidden="true">↗</span></a><a class="nav-github" href={repo} target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 22v-3.9a3.4 3.4 0 0 0-.9-2.7c3-.3 6.2-1.5 6.2-6.9A5.4 5.4 0 0 0 18.8 5a5 5 0 0 0-.1-3.5S17.5 1.2 15 2.9a13.4 13.4 0 0 0-6 0C6.5 1.2 5.3 1.5 5.3 1.5A5 5 0 0 0 5.2 5a5.4 5.4 0 0 0-1.5 3.5c0 5.4 3.2 6.6 6.2 6.9a3.4 3.4 0 0 0-.9 2.7V22"/></svg><span>GitHub</span><span aria-hidden="true">↗</span></a></nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span> 为硬件开发者而造的串口工作台</div>
+          <h1>每一个字节，<br />都有<span class="hero-emphasis">迹可循<svg viewBox="0 0 270 17" aria-hidden="true"><path d="M3 12 Q135 -2 266 8" /></svg></span>。</h1>
+          <p class="hero-description">插上设备，即刻进入状态。<br />让串口自动连接，让 MCU 自己留下线索。<br />从第一条启动日志，到最后一个字节。</p>
+          <div class="hero-actions flex flex-wrap items-center gap-4"><a class="button button-primary" href="#download"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>获取 GUART<span aria-hidden="true">↗</span></a><a class="text-link" href="#signature">认识两项独家功能 <span aria-hidden="true">→</span></a></div>
+          <div class="hero-footnote mono"><span>GO 原生构建</span><span>无 WebView</span><span>开源可探索</span></div>
+        </div>
+        <div class="hero-visual">
+          <div class="orbital orbital-one"></div><div class="orbital orbital-two"></div>
+          <div class="visual-caption mono"><span>LESS SETUP. MORE SIGNAL.</span><span>FIG. 01 / GUART</span></div>
+          <div class="app-window"><div class="window-chrome"><div class="window-dots"><i></i><i></i><i></i></div><span class="mono">GUART · Serial Studio</span><span class="window-chrome-right">原生工作台</span></div><img src="/images/guart-light.png" alt="GUART 真实浅色界面：左侧串口配置、中间彩色接收日志、右侧 STM32F103C8T6 MCU 推测结果。截图使用模拟数据。" width="1320" height="900" fetchpriority="high" /></div>
+          <div class="floating-note note-connect"><span class="note-icon">↗</span><div><span class="mono">DEVICE CONNECTED</span><strong>新串口出现，自动就位。</strong></div><span class="note-check">✓</span></div>
+          <div class="floating-note note-mcu"><span class="chip-small">▦</span><div><span class="mono">MCU INSIGHT</span><strong>STM32F103C8T6</strong><span class="note-detail">从日志中发现型号线索</span></div></div>
+          <p class="screenshot-caption">真实应用截图 · 模拟设备数据，非硬件认证</p>
+        </div>
+      </section>
+      <div class="capability-strip wrap"><span class="strip-label mono">BUILT FOR YOUR BENCH</span><span><i>⌁</i> 自动连接新串口</span><span><i>▦</i> 被动 MCU 推测</span><span><i>≋</i> ANSI 彩色日志</span><span><i>01</i> 原始字节检视</span></div>
+
+      <section id="signature" class="signature-section wrap section-space">
+        <div class="section-heading"><div><p class="section-kicker mono">THE GUART DIFFERENCE / 两项独家功能</p><h2>不止收发。<br />更懂你的下一步。</h2></div><p class="section-intro">把重复的操作交给工具，<br />把值得关注的线索留给你。</p></div>
+        <div class="signature-grid">
+          <article class="signature-card connect-card"><div class="card-label mono"><span>01 / AUTO CONNECT</span><span class="exclusive-tag">独家功能</span></div><h3>你负责插上。<br />连接，让 GUART 来。</h3><p>开启「自动连接新出现的串口」，下一次插入设备时，沿用当前参数自动连接。反复烧录、拔插调试，不必一遍遍找端口。</p><div class="connection-diagram" aria-label="插入设备后发现 COM7，沿用参数自动连接"><div class="usb-device"><span>USB</span><svg width="35" height="35" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 27V5m-4 4 4-4 4 4M16 22l-7-7v-4m7 8 7-7V8"/><circle cx="9" cy="9" r="2"/><path d="M21 4h4v4h-4z"/><circle cx="16" cy="27" r="2"/></svg></div><div class="signal-wire"><span></span></div><div class="port-chip"><span class="live-dot"></span><strong class="mono">COM7</strong><span>已自动连接</span></div></div><div class="feature-facts"><span>约每秒检测</span><span>沿用当前参数</span><span>不抢占已有连接</span></div><p class="boundary-note">默认关闭，需手动开启。只响应新增端口，不会自动打开现有设备；连接失败不持续重试。</p></article>
+          <article class="signature-card mcu-card"><div class="card-label mono"><span>02 / MCU INSIGHT</span><span class="exclusive-tag">独家功能</span></div><h3>不问设备。<br />也能读懂它的线索。</h3><p>推测当前连接的 MCU。从接收日志、启动特征和支持的原生 USB CDC 信息中寻找依据，呈现型号、厂商、内核与线索等级。</p><div class="mcu-diagram"><div class="mcu-log mono"><span>RX / BOOT LOG</span><code>MCU: <mark>STM32F103C8T6</mark><br />Firmware: 1.2.0<br />System ready<span class="cursor">_</span></code></div><div class="mcu-readout"><span class="chip-small">▦</span><div><strong>STM32F103C8T6</strong><span>STMicroelectronics · Cortex-M3</span></div><span class="readout-check">✓</span></div></div><div class="feature-facts"><span>始终被动分析</span><span>不发送探测指令</span><span>展示匹配依据</span></div><p class="boundary-note">推测不是硬件认证；线索不足时显示「尚未识别」，冲突时保留候选，不强行猜测。</p></article>
+        </div>
+      </section>
+
+      <section class="lab-section"><div class="lab-grid wrap"><div class="lab-copy"><p class="section-kicker mono">A LITTLE HANDS-ON / 交互体验</p><h2>不用接设备，<br />先感受一下。</h2><p>模拟一次插入，或读一段启动日志。<br />看看两项功能如何让调试少一点折腾。</p><a href="#download" class="text-link">准备好？打开真正的工作台 <span aria-hidden="true">→</span></a><div class="lab-decoration mono" aria-hidden="true"><span>TX ───────╮</span><span>　　　　　╰─────── RX</span></div></div><SignalLab client:visible /></div></section>
+
+      <section id="workspace" class="workspace-section wrap section-space"><div class="section-heading"><div><p class="section-kicker mono">YOUR EVERYDAY WORKSPACE / 日常调试</p><h2>趁手的工具，<br />也照顾每一个细节。</h2></div><p class="section-intro">原生界面，清晰信息。<br />从文本日志到二进制数据，始终从容。</p></div><div class="workspace-preview"><div class="workspace-top"><span><span class="live-dot"></span> 一个工作台，完整的调试视野</span><span class="mono">NATIVE UI / DARK APPEARANCE</span></div><img src="/images/guart-dark.png" alt="GUART 深色原生工作台截图：串口配置、ANSI 日志、MCU 线索面板同时呈现，使用模拟接收数据。" width="1320" height="900" loading="lazy" /><div class="workspace-bottom mono"><span>01 串口与参数</span><span>02 接收与发送</span><span>03 MCU 线索</span></div></div><div class="features-grid">{features.map((feature) => <article class="small-feature"><div class="small-feature-top"><span class="feature-icon" aria-hidden="true">{feature.icon}</span><span class="mono">{feature.n}</span></div><h3>{feature.title}</h3><p>{feature.text}</p><span class="feature-tag mono">{feature.tag}</span></article>)}</div></section>
+
+      <section class="native-strip wrap"><div class="native-mark mono">Go<span>+</span>MyGo</div><div><h3>这是一个原生应用，不是一张网页。</h3><p>Go + MyGo + MujicaUI 构建，无 WebView，无需 CGO。<br />跟随系统的浅色与深色外观，把注意力留给你的设备。</p></div><a href={repo} class="text-link" target="_blank" rel="noreferrer">探索源码 <span aria-hidden="true">↗</span></a></section>
+
+      <section id="download" class="download-section"><div class="wrap download-inner"><div><p class="section-kicker mono">READY WHEN YOU PLUG IN.</p><h2>下一次插入设备，<br />让调试顺手一点。</h2><p>从一条串口开始，发现更多线索。</p></div><div class="download-actions"><a class="button button-cream" href={`${repo}/releases/latest`} target="_blank" rel="noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>下载最新版本 <span aria-hidden="true">↗</span></a><span>前往 GitHub Releases 选择安装包</span><a href={`${repo}#运行`} class="source-build" target="_blank" rel="noreferrer">也可以从源码构建 →</a></div></div></section>
+    </main>
+    <footer class="wrap site-footer"><a class="footer-brand" href="/">GUART<span>每一个字节，都有迹可循。</span></a><span class="mono footer-credit">CRAFTED FOR THE SIGNAL.</span><div class="flex gap-6"><a href={`${repo}#readme`} target="_blank" rel="noreferrer">文档</a><a href={`${repo}/issues`} target="_blank" rel="noreferrer">反馈问题 ↗</a><a href={repo} target="_blank" rel="noreferrer">GitHub ↗</a></div></footer>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+name = "guart-website"
+compatibility_date = "2026-10-18"
+
+# Static-only Worker: no server entry point or Astro Cloudflare adapter needed.
+[assets]
+directory = "./dist"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"

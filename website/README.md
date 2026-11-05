@@ -41,12 +41,14 @@ hard-coded version or an assumed platform artifact.
 
 The images in `public/images` are real GUART UI renders produced by the existing
 MyGo Tester fixture, using simulated MCU receive data (not hardware capture).
-To regenerate from the repository root in PowerShell:
+They are stored as WebP; the fixture still renders PNG, so regenerate and
+re-encode from the repository root in PowerShell (needs ImageMagick's `magick`,
+or libwebp's `cwebp`):
 
 ```powershell
 $env:CGO_ENABLED = '0'
 $env:GUART_SCREENSHOTS = "$PWD/artifacts/website"
 go test -run '^TestRenderMCUScreenshots$' .
-Copy-Item artifacts/website/guart-mcu-light.png website/public/images/guart-light.png
-Copy-Item artifacts/website/guart-mcu-dark.png website/public/images/guart-dark.png
+magick artifacts/website/guart-mcu-light.png -quality 88 website/public/images/guart-light.webp
+magick artifacts/website/guart-mcu-dark.png -quality 88 website/public/images/guart-dark.webp
 ```
